@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var Token = require('languagejs-token');
+var Token = require('grammarjs-token');
 var value = Token.value;
 var passthrough = Token.passthrough;
 

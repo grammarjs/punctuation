@@ -1,10 +1,10 @@
 {
-  "name": "syntaxjs-punctuation",
+  "name": "grammarjs-punctuation",
   "version": "0.0.1",
   "main": "./index.js",
   "dependencies": {
     "grammarjs-grammar": "*",
-    "languagejs-token": "*"
+    "grammarjs-token": "*"
   },
   "devDependencies": {
     "grammarjs-recursive-parser": "*"
