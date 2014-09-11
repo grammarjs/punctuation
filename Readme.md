@@ -1,6 +1,8 @@
 
 # grammarjs-punctuation
 
+![experimental](http://img.shields.io/badge/status-experimental-orange.svg?style=flat)
+
 Punctuation plugin.
 
 ## Example

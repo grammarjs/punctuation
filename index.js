@@ -1,13 +1,5 @@
 
 /**
- * Module dependencies.
- */
-
-var Token = require('grammarjs-token');
-var value = Token.value;
-var passthrough = Token.passthrough;
-
-/**
  * Expose `plugin`.
  */
 
@@ -28,122 +20,217 @@ function plugin() {
      */
 
     rule('punctuation.percent')
-      .match('%', value);
+      .match('%');
 
     /**
      * The `$` symbol for variables/functions.
      */
 
     rule('punctuation.dollar')
-      .match('$', value);
+      .match('$');
 
     /**
      * The `@` symbol, for echoing output.
      */
 
     rule('punctuation.at')
-      .match('@', value);
+      .match('@');
 
     /**
      * The `-` symbol, for suppressing error messages.
      */
 
     rule('punctuation.dash')
-      .match('-', value);
+      .match('-');
 
     /**
      * Backslash.
      */
 
     rule('punctuation.backslash')
-      .match('\\', value);
+      .match('\\');
 
     /**
      * The `#` symbol for comments.
      */
 
     rule('punctuation.pound')
-      .match('#', value);
+      .match('#');
 
     /**
      * Open parenthesis.
      */
 
     rule('punctuation.bracket.begin')
-      .match('(', value);
+      .match('(');
 
     /**
      * Close parenthesis.
      */
 
     rule('punctuation.bracket.end')
-      .match(')', value);
+      .match(')');
 
     /**
      * Open curly bracket.
      */
 
     rule('punctuation.bracket.curly.begin')
-      .match('{', value);
+      .match('{');
 
     /**
      * Close curly bracket.
      */
 
     rule('punctuation.bracket.curly.end')
-      .match('}', value);
+      .match('}');
+
+    /**
+     * Open curly bracket.
+     */
+
+    rule('punctuation.bracket.square.begin')
+      .match('[');
+
+    /**
+     * Close curly bracket.
+     */
+
+    rule('punctuation.bracket.square.end')
+      .match(']');
 
     /**
      * Period.
      */
 
     rule('punctuation.period')
-      .match('.', value);
+      .match('.');
 
     /**
      * Colon.
      */
 
     rule('punctuation.colon')
-      .match(':', value);
+      .match(':');
 
     /**
      * Semicolon.
      */
 
     rule('punctuation.semicolon')
-      .match(';', value);
-
-    /**
-     * Equal.
-     */
-
-    rule('punctuation.equal')
-      .match('=', value);
+      .match(';');
 
     /**
      * Comma.
      */
 
     rule('punctuation.comma')
-      .match(',', value);
+      .match(',');
+
+    /**
+     * Equal.
+     */
+
+    rule('punctuation.equal')
+      .match('=');
 
     /**
      * New line.
      */
 
-    rule('punctuation.newline')
-      .match(/\n/, value);
+    rule('punctuation.whitespace.newline')
+      .match(/\n/);
 
     /**
      * Tab.
      */
 
-    rule('punctuation.tab')
-      .match(/\t/, value);
+    rule('punctuation.whitespace.tab')
+      .match(/\t/);
+
+    /**
+     * Separator / Space
+     */
+
+    rule('punctuation.whitespace.separator')
+      .match(/[\u0020\u00A0\u1680\u2000-\u200A\u202F\u205F\u3000]/);
+
+    /**
+     * Line terminator.
+     */
+
+    rule('punctuation.whitespace.line.terminator')
+      .match(/[\n\r\u2028\u2029]/);
+
+    /**
+     * Line terminator sequence.
+     */
+
+    rule('punctuation.whitespace.line.terminator-sequence')
+      .match(
+        '\n')
+      .match(
+        '\r\n')
+      .match(
+        '\r')
+      .match(
+        '\u2028')
+      .match(
+        '\u2029');
+
+    /**
+     * Backslash.
+     */
+
+    rule('punctuation.backslash')
+      .match("\\");
+    
+    rule('punctuation.whitespace.multiline')
+      .match(
+        ':punctuation.whitespace.multiline.character*');
+
+    rule('punctuation.whitespace.multiline.character')
+      .match(
+        ':punctuation.whitespace')
+      .match(
+        ':punctuation.whitespace.line.terminator-sequence')
+      .match(
+        ':comment');
+
+    rule(':punctuation.whitespace.simple')
+      .match(':punctuation.whitespace.simple.character*');
+
+    rule('punctuation.whitespace.simple.character')
+      .match(
+        ':punctuation.whitespace')
+      .match(
+        ':comment.multiline.no-line-terminator');
+
+    rule('punctuation.whitespace.eos')
+      .match(
+        ':punctuation.whitespace.multiline',
+        ':punctuation.semicolon')
+      .match(
+        ':punctuation.whitespace.simple',
+        ':SingleLinecomment?',
+        ':punctuation.whitespace.line.terminator-sequence')
+      .match(
+        ':punctuation.whitespace.simple',
+        '&:punctuation.bracket.square.end')
+      .match(
+        ':punctuation.whitespace.multiline',
+        ':punctuation.whitespace.eof');
+
+    rule('punctuation.whitespace.eof')
+      .match(
+        '!:punctuation.period');
+
+    /**
+     * Helper.
+     */
 
     function punctuation(name, pattern) {
-      grammar.rule('punctuation.' + name).match(pattern, value);
+      grammar.rule('punctuation.' + name).match(pattern);
     }
   };
 }

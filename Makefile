@@ -1,5 +1,11 @@
 
 #
+# Helpers.
+#
+
+MOCHA = ./node_modules/.bin/mocha
+
+#
 # Default target.
 #
 
@@ -10,14 +16,14 @@ default: test
 #
 
 clean:
-	@-rm -rf node_modules npm-debug.log
+	@-rm -rf build components node_modules npm-debug.log
 
 #
 # Test.
 #
 
 test: node_modules
-	@mocha -R spec test.js
+	@$(MOCHA) -R spec test.js
 
 #
 # Phony targets.
@@ -31,3 +37,4 @@ test: node_modules
 
 node_modules: package.json
 	@npm install
+	@touch node_modules
